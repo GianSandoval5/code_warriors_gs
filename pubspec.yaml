@@ -1,0 +1,72 @@
+name: code_warriors
+description: "A new Flutter project."
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.2.3 <4.0.0"
+
+dependencies:
+  card_swiper: ^3.0.1
+  carousel_slider: ^4.2.1
+  cloud_firestore: ^4.15.4
+  cupertino_icons: ^1.0.2
+  curved_navigation_bar: ^1.0.3
+  firebase_auth: ^4.17.4
+  firebase_core: ^2.25.4
+  firebase_messaging: ^14.7.15
+  firebase_storage: ^11.6.5
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  get_it: ^7.6.7
+  hive: ^2.2.3
+  http: ^1.2.0
+  image_picker: ^1.0.7
+  intl: ^0.18.1
+  liquid_swipe: ^3.1.0
+  path_provider: ^2.1.2
+  permission_handler: ^11.2.1
+  provider: ^6.1.1
+  share: ^2.0.4
+  ticket_widget: ^1.0.2
+  youtube_player_flutter: ^8.1.2
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+# The following section is specific to Flutter packages.
+flutter:
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/images/
+    - assets/fonts/
+    - assets/icons/
+    - assets/gif/
+
+  # fuentes de texto:
+  fonts:
+    - family: CB
+      fonts:
+        - asset: assets/fonts/BR-Cobane-Bold.otf
+    - family: CM
+      fonts:
+        - asset: assets/fonts/BR-Cobane-Medium.otf
+    - family: CS
+      fonts:
+        - asset: assets/fonts/BR-Cobane-SemiBold.otf
+    - family: CR
+      fonts:
+        - asset: assets/fonts/BR-Cobane-Regular.otf
