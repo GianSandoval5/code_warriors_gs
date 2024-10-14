@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 
 class CarteleraScreen extends StatefulWidget {
   final dynamic userData;
-  const CarteleraScreen({Key? key, this.userData}) : super(key: key);
+  const CarteleraScreen({super.key, this.userData});
 
   @override
   State<CarteleraScreen> createState() => _CarteleraScreenState();

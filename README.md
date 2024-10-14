@@ -1,16 +1,32 @@
-# code_warriors
+# online_store
 
-A new Flutter project.
+Este es un proyecto hecho con Flutter de una apps de peliculas para el RETO CODE WARRIORS del canal de DIEGO VELASQUEZ https://www.youtube.com/watch?v=f7tO38x6Tkw&t=860s
 
-## Getting Started
+Es un proyecto abierto y funcional, para usarlo tienen que conectarlo a su cuenta de Firebase
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+<p float="left">
+    <img src="/assets/capturas/1.jpg" width="200" />
+    <img src="/assets/capturas/2.jpg" width="200" />
+    <img src="/assets/capturas/3.jpg" width="200" />
+</p>
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<p float="left">
+    <img src="/assets/capturas/6.jpg" width="200" />
+    <img src="/assets/capturas/7.jpg" width="200" />
+    <img src="/assets/capturas/8.jpg" width="200" />
+</p>
+
+<p float="left">
+    <img src="/assets/capturas/9.jpg" width="200" />
+    <img src="/assets/capturas/10.jpg" width="200" />
+    <img src="/assets/capturas/12.jpg" width="200" />
+</p>
+
+
+<p float="left">
+    <img src="/assets/capturas/11.jpg" width="200" />
+    <img src="/assets/capturas/4.jpg" width="200" />
+    <img src="/assets/capturas/5.jpg" width="200" />
+</p>
