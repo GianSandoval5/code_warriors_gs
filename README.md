@@ -1,4 +1,4 @@
-# online_store
+# CODE_WARRIORS 
 
 Este es un proyecto hecho con Flutter de una apps de peliculas para el RETO CODE WARRIORS del canal de DIEGO VELASQUEZ https://www.youtube.com/watch?v=f7tO38x6Tkw&t=860s
 
