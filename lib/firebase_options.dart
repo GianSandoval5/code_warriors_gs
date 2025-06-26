@@ -49,22 +49,6 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDuRcfy3fLTZrKyBsGSa7nMn7cxjh0FNBI',
-    appId: '1:2581096843:android:a9f58a39f8530a32c4278e',
-    messagingSenderId: '2581096843',
-    projectId: 'code-warriors-54fe3',
-    storageBucket: 'code-warriors-54fe3.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyC5KhL8Tty6_O3zaNyBgBbbnjCn70E6nto',
-    appId: '1:2581096843:ios:329c1409eada5767c4278e',
-    messagingSenderId: '2581096843',
-    projectId: 'code-warriors-54fe3',
-    storageBucket: 'code-warriors-54fe3.appspot.com',
-    androidClientId: '2581096843-8vich7140jiq2ngjtmltovsa9s67u3pb.apps.googleusercontent.com',
-    iosClientId: '2581096843-8g6k15ngvmajsfn7spfrq3upvd3u93e2.apps.googleusercontent.com',
-    iosBundleId: 'code.warriors.gs',
-  );
+//TU PROPIO CODIGO AQUÍ
+  
 }

@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class MoviesProvider extends ChangeNotifier {
-  final String _apiKey = 'e5906a1b3c019a50c4da7da7ee9e8724';
+  final String _apiKey = '';
   final String _baseUrl = 'api.themoviedb.org';
   final String _language = 'es-ES';
 
