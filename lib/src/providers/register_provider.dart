@@ -306,7 +306,7 @@ class RegisterProvider extends ChangeNotifier {
                 children: [
                   MaterialButton(
                     color: AppColors.acentColor,
-                    splashColor: AppColors.deepOrange.withOpacity(0.8),
+                    splashColor: AppColors.deepOrange.withAlpha(200),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                     child: const Text(
@@ -331,7 +331,7 @@ class RegisterProvider extends ChangeNotifier {
                   MaterialButton(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
-                    color: AppColors.deepOrange.withOpacity(0.8),
+                    color: AppColors.deepOrange.withAlpha(200),
                     splashColor: AppColors.acentColor,
                     child: const Text(
                       'Eliminar',

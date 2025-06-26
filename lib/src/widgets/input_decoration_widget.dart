@@ -25,7 +25,7 @@ class InputDecorationWidget extends StatelessWidget {
   final BorderRadius borderRadius;
 
   const InputDecorationWidget({
-    Key? key,
+    super.key,
     this.controller,
     this.validator,
     required this.hintText,
@@ -47,7 +47,7 @@ class InputDecorationWidget extends StatelessWidget {
     this.color = AppColors.darkColor,
     this.showCursor,
     this.borderRadius = const BorderRadius.all(Radius.circular(10)),
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +87,7 @@ class InputDecorationWidget extends StatelessWidget {
           hintText: hintText,
           labelText: labelText,
           hintStyle: TextStyle(
-              color: color.withOpacity(0.5), fontSize: 15, fontFamily: "CM"),
+              color: color.withAlpha(120), fontSize: 15, fontFamily: "CM"),
           labelStyle: TextStyle(color: color, fontSize: 15, fontFamily: "CB"),
           enabledBorder: OutlineInputBorder(
             borderRadius: borderRadius,

@@ -1,4 +1,54 @@
 {
-    crear su propio archivo json en firebase
-    https://youtu.be/RUT96zMrF7I?si=3sBjmTWeKqEMxew7
+  "project_info": {
+    "project_number": "2581096843",
+    "project_id": "code-warriors-54fe3",
+    "storage_bucket": "code-warriors-54fe3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:2581096843:android:a9f58a39f8530a32c4278e",
+        "android_client_info": {
+          "package_name": "code.warriors.gs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "2581096843-8vich7140jiq2ngjtmltovsa9s67u3pb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "code.warriors.gs",
+            "certificate_hash": "ebfd9121566fc0ca5605c0500ba13d8ae1e24fc8"
+          }
+        },
+        {
+          "client_id": "2581096843-9i9ufnm3rdpis4cfl4fmpsbjg6hiiqsd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuRcfy3fLTZrKyBsGSa7nMn7cxjh0FNBI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "2581096843-9i9ufnm3rdpis4cfl4fmpsbjg6hiiqsd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "2581096843-b32rk92uggbqdi4jqdr5ckjn9k26c19k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.codeWarriors"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
 }

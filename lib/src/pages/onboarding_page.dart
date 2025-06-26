@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously, unrelated_type_equality_checks
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:code_warriors/src/pages/inicio_page.dart';
@@ -229,8 +229,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                   begin: Alignment.bottomRight,
                   stops: const [0.6, 1.0],
                   colors: [
-                    AppColors.darkColor.withOpacity(0.85),
-                    AppColors.darkColor.withOpacity(0.0),
+                    AppColors.darkColor.withAlpha(220),
+                    AppColors.darkColor.withAlpha(0),
                   ],
                 ),
               ),

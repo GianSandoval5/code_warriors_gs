@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class BoleteriaPage extends StatefulWidget {
-  const BoleteriaPage({Key? key}) : super(key: key);
+  const BoleteriaPage({super.key});
 
   @override
   State<BoleteriaPage> createState() => _BoleteriaPageState();
@@ -36,18 +36,16 @@ class _BoleteriaPageState extends State<BoleteriaPage> {
     return Scaffold(
       backgroundColor: isDarkMode ? AppColors.darkColor : AppColors.lightColor,
       appBar: AppBar(
-        backgroundColor:
-            isDarkMode ? AppColors.darkColor : AppColors.lightColor,
+        backgroundColor: isDarkMode
+            ? AppColors.darkColor
+            : AppColors.lightColor,
         iconTheme: IconThemeData(
           color: isDarkMode ? AppColors.lightColor : AppColors.darkColor,
         ),
         centerTitle: true,
         title: Text(
           movie.title,
-          style: const TextStyle(
-            fontSize: 19,
-            fontFamily: "CB",
-          ),
+          style: const TextStyle(fontSize: 19, fontFamily: "CB"),
         ),
       ),
       body: Padding(
@@ -64,7 +62,7 @@ class _BoleteriaPageState extends State<BoleteriaPage> {
                 ),
                 const Spacer(),
                 //icono de informacion
-                _dialogoInfoCine(isDarkMode: isDarkMode),
+                DialogoInfoCine(isDarkMode: isDarkMode),
               ],
             ),
             const Text(
@@ -79,8 +77,11 @@ class _BoleteriaPageState extends State<BoleteriaPage> {
                 scrollDirection: Axis.horizontal,
                 itemCount: daysInMonth - DateTime.now().day + 1,
                 itemBuilder: (context, index) {
-                  final date = DateTime(DateTime.now().year,
-                      DateTime.now().month, DateTime.now().day + index);
+                  final date = DateTime(
+                    DateTime.now().year,
+                    DateTime.now().month,
+                    DateTime.now().day + index,
+                  );
                   final weekDay = DateFormat('EEE', 'es_ES').format(date);
                   final capitalizedWeekDay =
                       weekDay[0].toUpperCase() + weekDay.substring(1);
@@ -99,25 +100,31 @@ class _BoleteriaPageState extends State<BoleteriaPage> {
                         border: Border.all(
                           color: isToday
                               ? AppColors.darkAcentsColor
-                              : AppColors.red.withOpacity(0.5),
+                              : AppColors.red.withAlpha(120)
                         ),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
                           children: [
-                            Text('${DateTime.now().day + index}',
-                                style: TextStyle(
-                                    fontFamily: "CB",
-                                    color: isDarkMode || isToday
-                                        ? AppColors.lightColor
-                                        : AppColors.darkColor)),
-                            Text(capitalizedWeekDay,
-                                style: TextStyle(
-                                    fontFamily: "CM",
-                                    color: isDarkMode || isToday
-                                        ? AppColors.lightColor
-                                        : AppColors.darkColor)),
+                            Text(
+                              '${DateTime.now().day + index}',
+                              style: TextStyle(
+                                fontFamily: "CB",
+                                color: isDarkMode || isToday
+                                    ? AppColors.lightColor
+                                    : AppColors.darkColor,
+                              ),
+                            ),
+                            Text(
+                              capitalizedWeekDay,
+                              style: TextStyle(
+                                fontFamily: "CM",
+                                color: isDarkMode || isToday
+                                    ? AppColors.lightColor
+                                    : AppColors.darkColor,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -136,11 +143,14 @@ class _BoleteriaPageState extends State<BoleteriaPage> {
                 itemCount:
                     11, // Horarios cada dos horas desde la 1 PM hasta las 11 PM
                 itemBuilder: (context, index) {
-                  final time = DateFormat('h:mm a').format(DateTime(
+                  final time = DateFormat('h:mm a').format(
+                    DateTime(
                       DateTime.now().year,
                       DateTime.now().month,
                       DateTime.now().day,
-                      13 + index));
+                      13 + index,
+                    ),
+                  );
                   final isSelected = time == selectedTime;
 
                   return GestureDetector(
@@ -157,7 +167,7 @@ class _BoleteriaPageState extends State<BoleteriaPage> {
                         border: Border.all(
                           color: isSelected
                               ? AppColors.darkAcentsColor
-                              : AppColors.red.withOpacity(0.5),
+                              : AppColors.red.withAlpha(120),
                         ),
                       ),
                       child: Padding(
@@ -190,8 +200,9 @@ class _BoleteriaPageState extends State<BoleteriaPage> {
                   'S/ ${totalPrice.toStringAsFixed(2)}',
                   style: TextStyle(
                     fontSize: 20,
-                    color:
-                        isDarkMode ? AppColors.lightColor : AppColors.darkColor,
+                    color: isDarkMode
+                        ? AppColors.lightColor
+                        : AppColors.darkColor,
                     fontFamily: "CB",
                   ),
                 ),
@@ -211,55 +222,57 @@ class _BoleteriaPageState extends State<BoleteriaPage> {
             const SizedBox(height: 5),
             Expanded(
               child: ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: 5,
+                physics: BouncingScrollPhysics(),
+                itemCount: 6,
                 itemBuilder: (context, i) {
                   int seatsInRow = i < 1
                       ? 5
                       : i < 2
-                          ? 6
-                          : i < 3
-                              ? 7
-                              : 8;
+                      ? 6
+                      : i < 3
+                      ? 7
+                      : i < 4
+                      ? 8
+                      : 9;
                   int seatsInPreviousRows = i < 1
                       ? 0
                       : i < 2
-                          ? 5
-                          : i < 3
-                              ? 11
-                              : i < 4
-                                  ? 18
-                                  : 26;
+                      ? 5
+                      : i < 3
+                      ? 11
+                      : i < 4
+                      ? 18
+                      : i < 5
+                      ? 26
+                      : 34;
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5),
                     child: Wrap(
                       alignment: WrapAlignment.center,
                       spacing: 5,
-                      children: List.generate(
-                        seatsInRow,
-                        (j) {
-                          int seatNumber = seatsInPreviousRows + j + 1;
-                          return _Seat(
-                            seatNumber: seatNumber,
-                            onSelected: (isSelected) {
-                              setState(() {
-                                if (isSelected) {
-                                  selectedSeats.add(seatNumber);
-                                  // Aumentar el precio total
-                                  totalPrice += ticketPrice;
-                                } else {
-                                  selectedSeats.remove(seatNumber);
-                                  // Disminuir el precio total
-                                  totalPrice -= ticketPrice;
-                                }
-                                // Redondear el precio total a dos decimales
-                                totalPrice =
-                                    double.parse(totalPrice.toStringAsFixed(2));
-                              });
-                            },
-                          );
-                        },
-                      ),
+                      children: List.generate(seatsInRow, (j) {
+                        int seatNumber = seatsInPreviousRows + j + 1;
+                        return _Seat(
+                          seatNumber: seatNumber,
+                          onSelected: (isSelected) {
+                            setState(() {
+                              if (isSelected) {
+                                selectedSeats.add(seatNumber);
+                                // Aumentar el precio total
+                                totalPrice += ticketPrice;
+                              } else {
+                                selectedSeats.remove(seatNumber);
+                                // Disminuir el precio total
+                                totalPrice -= ticketPrice;
+                              }
+                              // Redondear el precio total a dos decimales
+                              totalPrice = double.parse(
+                                totalPrice.toStringAsFixed(2),
+                              );
+                            });
+                          },
+                        );
+                      }),
                     ),
                   );
                 },
@@ -272,8 +285,9 @@ class _BoleteriaPageState extends State<BoleteriaPage> {
                 style: TextStyle(
                   fontSize: 15,
                   fontFamily: "CB",
-                  color:
-                      isDarkMode ? AppColors.lightColor : AppColors.darkColor,
+                  color: isDarkMode
+                      ? AppColors.lightColor
+                      : AppColors.darkColor,
                 ),
               ),
             ),
@@ -330,14 +344,19 @@ class _BoleteriaPageState extends State<BoleteriaPage> {
                     context: context,
                     builder: (context) {
                       return AlertDialog(
-                        title: const Text('Code Warriors',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontFamily: "CB", color: AppColors.red)),
+                        title: const Text(
+                          'Code Warriors',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: "CB",
+                            color: AppColors.red,
+                          ),
+                        ),
                         content: const Text(
-                            "Por favor selecciona al menos un asiento para continuar",
-                            textAlign: TextAlign.justify,
-                            style: TextStyle(fontFamily: "CM")),
+                          "Por favor selecciona al menos un asiento para continuar",
+                          textAlign: TextAlign.justify,
+                          style: TextStyle(fontFamily: "CM"),
+                        ),
                         actions: [
                           MaterialButton(
                             shape: RoundedRectangleBorder(
@@ -360,33 +379,46 @@ class _BoleteriaPageState extends State<BoleteriaPage> {
                 }
                 //transforma el selectedDay a Lun 12, Feb 2022
                 final day = DateFormat('E d, MMM yyyy', 'es_ES').format(
-                    DateTime(DateTime.now().year, DateTime.now().month,
-                        selectedDay));
+                  DateTime(
+                    DateTime.now().year,
+                    DateTime.now().month,
+                    selectedDay,
+                  ),
+                );
                 //primer letra en mayuscula
                 final newDay = day[0].toUpperCase() + day.substring(1);
 
                 if (selectedTime.isNotEmpty) {
-                  Navigator.pushNamed(context, '/detalleCompra', arguments: {
-                    'movie': movie,
-                    'userData': userData,
-                    'selectedDay': newDay,
-                    'selectedTime': selectedTime,
-                    'selectedSeats': selectedSeats,
-                    'totalPrice': totalPrice,
-                  });
+                  Navigator.pushNamed(
+                    context,
+                    '/detalleCompra',
+                    arguments: {
+                      'movie': movie,
+                      'userData': userData,
+                      'selectedDay': newDay,
+                      'selectedTime': selectedTime,
+                      'selectedSeats': selectedSeats,
+                      'totalPrice': totalPrice,
+                    },
+                  );
                 } else {
                   showDialog(
                     context: context,
                     builder: (context) {
                       return AlertDialog(
-                        title: const Text('Code Warriors',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontFamily: "CB", color: AppColors.red)),
+                        title: const Text(
+                          'Code Warriors',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: "CB",
+                            color: AppColors.red,
+                          ),
+                        ),
                         content: const Text(
-                            "Por favor selecciona un horario para continuar",
-                            textAlign: TextAlign.justify,
-                            style: TextStyle(fontFamily: "CM")),
+                          "Por favor selecciona un horario para continuar",
+                          textAlign: TextAlign.justify,
+                          style: TextStyle(fontFamily: "CM"),
+                        ),
                         actions: [
                           MaterialButton(
                             shape: RoundedRectangleBorder(
@@ -416,11 +448,8 @@ class _BoleteriaPageState extends State<BoleteriaPage> {
   }
 }
 
-class _dialogoInfoCine extends StatelessWidget {
-  const _dialogoInfoCine({
-    super.key,
-    required this.isDarkMode,
-  });
+class DialogoInfoCine extends StatelessWidget {
+  const DialogoInfoCine({super.key, required this.isDarkMode});
 
   final bool isDarkMode;
 
@@ -432,13 +461,16 @@ class _dialogoInfoCine extends StatelessWidget {
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: const Text('Code Warriors',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontFamily: "CB", color: AppColors.red)),
+              title: const Text(
+                'Code Warriors',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontFamily: "CB", color: AppColors.red),
+              ),
               content: const Text(
-                  "El horario de apertura es a la 1:00 PM y el de cierre y venta de boletos a las 11:00 PM\n\n",
-                  textAlign: TextAlign.justify,
-                  style: TextStyle(fontFamily: "CM")),
+                "El horario de apertura es a la 1:00 PM y el de cierre y venta de boletos a las 11:00 PM\n\n",
+                textAlign: TextAlign.justify,
+                style: TextStyle(fontFamily: "CM"),
+              ),
               actions: [
                 MaterialButton(
                   shape: RoundedRectangleBorder(
@@ -458,10 +490,7 @@ class _dialogoInfoCine extends StatelessWidget {
           },
         );
       },
-      icon: Icon(
-        Icons.info,
-        color: isDarkMode ? Colors.white : Colors.black,
-      ),
+      icon: Icon(Icons.info, color: isDarkMode ? Colors.white : Colors.black),
     );
   }
 }
@@ -470,8 +499,7 @@ class _Seat extends StatefulWidget {
   final int seatNumber;
   final ValueChanged<bool> onSelected;
 
-  const _Seat({Key? key, required this.seatNumber, required this.onSelected})
-      : super(key: key);
+  const _Seat({required this.seatNumber, required this.onSelected});
 
   @override
   _SeatState createState() => _SeatState();
@@ -509,7 +537,10 @@ class _SeatState extends State<_Seat> {
               child: Text(
                 'B${widget.seatNumber}',
                 style: const TextStyle(
-                    color: AppColors.darkColor, fontSize: 10, fontFamily: "CS"),
+                  color: AppColors.darkColor,
+                  fontSize: 10,
+                  fontFamily: "CS",
+                ),
               ),
             ),
           ],
@@ -520,19 +551,17 @@ class _SeatState extends State<_Seat> {
 }
 
 class VisionScreen extends StatelessWidget {
-  const VisionScreen({Key? key}) : super(key: key);
+  const VisionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Container(
+    return SizedBox(
       width: size.width,
       height: 50,
       child: ClipPath(
         clipper: _VisionClipper(),
-        child: CustomPaint(
-          painter: _VisionPainter(),
-        ),
+        child: CustomPaint(painter: _VisionPainter()),
       ),
     );
   }
@@ -546,6 +575,7 @@ class _VisionPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 5.0;
 
+    // Dibuja una curva que simula la pantalla del cine
     final path = Path();
     path.moveTo(0, size.height);
     path.quadraticBezierTo(size.width * 0.5, 0, size.width, size.height);
@@ -556,13 +586,10 @@ class _VisionPainter extends CustomPainter {
       ..shader = LinearGradient(
         begin: Alignment.bottomCenter,
         end: Alignment.topCenter,
-        colors: [Colors.white.withOpacity(0.5), Colors.transparent],
+        colors: [Colors.white.withAlpha(120), Colors.transparent],
       ).createShader(Rect.fromLTWH(0, 0, size.width, size.height));
 
-    canvas.drawRect(
-      Rect.fromLTWH(0, 0, size.width, size.height),
-      screenPaint,
-    );
+    canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), screenPaint);
   }
 
   @override

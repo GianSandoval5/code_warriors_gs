@@ -7,8 +7,7 @@ import 'package:flutter/material.dart';
 class CircularProgressWidget extends StatefulWidget {
   final String text;
 
-  const CircularProgressWidget({Key? key, required this.text})
-      : super(key: key);
+  const CircularProgressWidget({super.key, required this.text});
 
   @override
   _CircularProgressWidgetState createState() => _CircularProgressWidgetState();

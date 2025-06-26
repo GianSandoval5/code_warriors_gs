@@ -46,7 +46,7 @@ class Video {
 
   factory Video.fromRawJson(String str) => Video.fromJson(json.decode(str));
 
-  get fullTrailerImg {
+  String get fullTrailerImg {
     return 'https://www.youtube.com/watch?v=$key';
   }
 

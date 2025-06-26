@@ -2,7 +2,6 @@
 
 import 'dart:io';
 
-import 'package:code_warriors/src/providers/register_provider.dart';
 import 'package:code_warriors/src/utils/colors.dart';
 import 'package:code_warriors/src/utils/dark_mode_extension.dart';
 import 'package:code_warriors/src/utils/export.dart';
@@ -15,7 +14,7 @@ import 'package:provider/provider.dart';
 
 class AddProducto extends StatefulWidget {
   final dynamic userData;
-  const AddProducto({Key? key, this.userData}) : super(key: key);
+  const AddProducto({super.key, this.userData});
 
   @override
   State<AddProducto> createState() => _AddProductoState();

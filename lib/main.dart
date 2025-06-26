@@ -14,15 +14,17 @@ void main() async {
   await LocalStorage().init();
   final isLoggedIn = LocalStorage().getIsLoggedIn();
   //bloquear orientacion de la pantalla
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   await injectDependencies();
   runApp(MyApp(isLoggedIn: isLoggedIn));
 }
 
 class MyApp extends StatelessWidget {
   final bool isLoggedIn;
-  const MyApp({Key? key, required this.isLoggedIn}) : super(key: key);
+  const MyApp({super.key, required this.isLoggedIn});
 
   @override
   Widget build(BuildContext context) {
@@ -35,14 +37,16 @@ class MyApp extends StatelessWidget {
       child: ChangeNotifierProvider(
         create: (_) => ThemeController(),
         child: Consumer<ThemeController>(
-          builder: (_, controller, __) => MaterialApp(
+          builder: (_, controller, _) => MaterialApp(
             // navigatorKey: NavigationServices.navigatorKey,
             navigatorObservers: [OrientationResetObserver()],
             scaffoldMessengerKey: NotificationService.messengerKey,
+            //no afecta la cnfiguracion del dispositivo a la app
             builder: (context, child) {
               return MediaQuery(
-                data: MediaQuery.of(context)
-                    .copyWith(textScaler: const TextScaler.linear(1.0)),
+                data: MediaQuery.of(
+                  context,
+                ).copyWith(textScaler: const TextScaler.linear(1.0)),
                 child: child!,
               );
             },
@@ -51,10 +55,7 @@ class MyApp extends StatelessWidget {
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            supportedLocales: const [
-              Locale('en', 'US'),
-              Locale('es', 'ES'),
-            ],
+            supportedLocales: const [Locale('en', 'US'), Locale('es', 'ES')],
             debugShowCheckedModeBanner: false,
             themeMode: controller.themeMode,
             theme: controller.lightTheme,

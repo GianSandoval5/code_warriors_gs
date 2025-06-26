@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class AdminPage extends StatelessWidget {
   final dynamic userData;
-  const AdminPage({Key? key, this.userData}) : super(key: key);
+  const AdminPage({super.key, this.userData});
 
   @override
   Widget build(BuildContext context) {

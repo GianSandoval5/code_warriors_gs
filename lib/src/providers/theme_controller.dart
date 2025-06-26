@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:code_warriors/src/controllers/settings_repository.dart';
 import 'package:code_warriors/src/utils/colors.dart';
 import 'package:flutter/material.dart';
@@ -80,9 +82,9 @@ class ThemeController extends ChangeNotifier {
         ),
       ),
       switchTheme: SwitchThemeData(
-        thumbColor: MaterialStateProperty.all(AppColors.acentColor),
-        trackColor: MaterialStateProperty.all(
-          AppColors.acentColor.withOpacity(0.6),
+        thumbColor: WidgetStateProperty.all(AppColors.acentColor),
+        trackColor: WidgetStateProperty.all(
+          AppColors.acentColor.withAlpha(130),
         ),
       ),
     );

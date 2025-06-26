@@ -7,15 +7,15 @@ class MyIconButton extends StatelessWidget {
   final VoidCallback onPressed;
   final ImageProvider imageIcon;
   const MyIconButton({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.imageIcon,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     final isDarkMode = context.isDarkMode;
-    return Container(
+    return SizedBox(
         width: 50,
       child: MaterialButton(
         height: 50,

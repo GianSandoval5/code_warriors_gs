@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   final dynamic userData;
-  const HomeScreen({Key? key, this.userData}) : super(key: key);
+  const HomeScreen({super.key, this.userData});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -303,11 +303,11 @@ class CardSwiper extends StatelessWidget {
   final List<Movie> movies;
   final Function(int) onIndexChanged;
   const CardSwiper({
-    Key? key,
+    super.key,
     required this.userData,
     required this.movies,
     required this.onIndexChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

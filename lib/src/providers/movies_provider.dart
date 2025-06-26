@@ -75,7 +75,7 @@ class MoviesProvider extends ChangeNotifier {
   }
 
   //mostrar películas en cartelera
-  getNowPlayingMovies() async {
+  Future<void> getNowPlayingMovies() async {
     final jsonData = await getJsonData('3/movie/now_playing');
     final nowPlayingResponse = NowPlaying.fromJson(json.decode(jsonData));
     onDisplayMovies = nowPlayingResponse.results;
@@ -83,7 +83,7 @@ class MoviesProvider extends ChangeNotifier {
   }
 
   //mostrar películas populares
-  getPopularMovies() async {
+  Future<void> getPopularMovies() async {
     _popularPage++;
     final jsonData = await getJsonData('3/movie/popular', _popularPage);
     final popularResponse = PopularsMovie.fromJson(json.decode(jsonData));
@@ -92,7 +92,7 @@ class MoviesProvider extends ChangeNotifier {
   }
 
   //mostrar películas mejor valoradas
-  getTopRatedMovies() async {
+  Future<void> getTopRatedMovies() async {
     _topRatedPage++;
     final jsonData = await getJsonData('3/movie/top_rated', _topRatedPage);
     final topRatedResponse = TopValorados.fromJson(json.decode(jsonData));
@@ -101,7 +101,7 @@ class MoviesProvider extends ChangeNotifier {
   }
 
   //mostrar películas próximas
-  getComingSoonMovies() async {
+  Future<void> getComingSoonMovies() async {
     _comingSoonPage++;
     final jsonData = await getJsonData('3/movie/upcoming', _comingSoonPage);
     final comingSoonResponse =

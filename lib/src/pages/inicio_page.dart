@@ -12,7 +12,7 @@ import 'package:flutter/services.dart';
 
 class InicioPage extends StatefulWidget {
   final dynamic userData;
-  const InicioPage({Key? key, this.userData}) : super(key: key);
+  const InicioPage({super.key, this.userData});
 
   @override
   State<InicioPage> createState() => _InicioPageState();

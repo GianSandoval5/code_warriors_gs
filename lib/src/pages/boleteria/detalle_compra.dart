@@ -12,7 +12,7 @@ import 'package:code_warriors/src/widgets/row_price_details.dart';
 import 'package:flutter/material.dart';
 
 class DetalleCompra extends StatefulWidget {
-  const DetalleCompra({Key? key}) : super(key: key);
+  const DetalleCompra({super.key});
 
   @override
   State<DetalleCompra> createState() => _DetalleCompraState();
@@ -402,7 +402,7 @@ class _DetalleCompraState extends State<DetalleCompra> {
                                                           0
                                                   ? AppColors.red
                                                   : AppColors.darkAcentsColor
-                                                      .withOpacity(0.5),
+                                                      .withAlpha(120)
                                         ),
                                       ),
                                       Text(

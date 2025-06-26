@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 
 class OfertasPage extends StatefulWidget {
   final dynamic userData;
-  const OfertasPage({Key? key, this.userData}) : super(key: key);
+  const OfertasPage({super.key, this.userData});
 
   @override
   State<OfertasPage> createState() => _OfertasPageState();
@@ -43,10 +43,9 @@ class _Categorias extends StatefulWidget {
   final MoviesProvider movie;
   final dynamic userData;
   const _Categorias({
-    Key? key,
     required this.movie,
     required this.userData,
-  }) : super(key: key);
+  });
 
   @override
   _CategoriasState createState() => _CategoriasState();
@@ -244,7 +243,7 @@ class _CategoriasState extends State<_Categorias> {
                       child: Card(
                         elevation: 15,
                         shadowColor: isDarkMode
-                            ? AppColors.lightColor.withOpacity(0.6)
+                            ? AppColors.lightColor.withAlpha(130)
                             : AppColors.darkAcentsColor,
                         child: Container(
                           decoration: BoxDecoration(
@@ -354,7 +353,6 @@ class _CarouselOfertas extends StatelessWidget {
   final MoviesProvider movie;
   final dynamic userData;
   const _CarouselOfertas({
-    super.key,
     required this.movie,
     required this.userData,
   });
@@ -362,7 +360,7 @@ class _CarouselOfertas extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final moviesWithImage = movie.onDisplayMovies
-        .where((movie) => movie.fullBackdropPath != null)
+        .where((movie) => movie.fullBackdropPath.isNotEmpty)
         .toList();
     bool isDarkMode = context.isDarkMode;
     return Column(

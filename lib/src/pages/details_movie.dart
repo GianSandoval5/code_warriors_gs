@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, camel_case_types
+// ignore_for_file: use_build_context_synchronously
 
 import 'dart:io';
 
@@ -16,11 +16,11 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class DetailsMoviePage extends StatefulWidget {
-  const DetailsMoviePage({Key? key}) : super(key: key);
+  const DetailsMoviePage({super.key});
 
   @override
   State<DetailsMoviePage> createState() => _DetailsMoviePageState();
@@ -43,10 +43,17 @@ class _DetailsMoviePageState extends State<DetailsMoviePage> {
     await response.pipe(sink);
     await sink.close();
 
-    await Share.shareFiles(
-      [file.path],
-      text: 'Mira esta película: *$title* en la app de CodeWarriors',
-      subject: 'Película: $title',
+    final text = "Mira esta película: *$title* en la app de CodeWarriors";
+
+    final xFile = XFile(file.path);
+    // await Share.shareXFiles([xFile], text: text, subject: "Película: $title");
+    SharePlus.instance.share(
+      ShareParams(
+        files: [xFile],
+        text: text,
+        subject: "Película: $title",
+        sharePositionOrigin: Rect.fromLTWH(0, 0, 100, 100),
+      ),
     );
   }
 
@@ -94,8 +101,9 @@ class _DetailsMoviePageState extends State<DetailsMoviePage> {
                           children: [
                             const SizedBox(height: 40),
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 25),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 25,
+                              ),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -134,8 +142,10 @@ class _DetailsMoviePageState extends State<DetailsMoviePage> {
                         ),
                       ),
                     ),
-                    _buttomPlayTrailer(
-                        moviesProvider: moviesProvider, movie: movie),
+                    ButtomPlayTrailer(
+                      moviesProvider: moviesProvider,
+                      movie: movie,
+                    ),
                   ],
                 ),
               ],
@@ -193,10 +203,7 @@ class _DetailsMoviePageState extends State<DetailsMoviePage> {
                     Navigator.pushNamed(
                       context,
                       "/boleteria",
-                      arguments: {
-                        'movie': movie,
-                        'userData': userData,
-                      },
+                      arguments: {'movie': movie, 'userData': userData},
                     );
                   },
                 ),
@@ -266,16 +273,14 @@ class _DetailsMoviePageState extends State<DetailsMoviePage> {
                   style: TextStyle(
                     fontSize: 20,
                     fontFamily: "CB",
-                    color:
-                        isDarkMode ? AppColors.lightColor : AppColors.darkColor,
+                    color: isDarkMode
+                        ? AppColors.lightColor
+                        : AppColors.darkColor,
                   ),
                 ),
                 Text(
                   movie.originalTitle,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontFamily: "CM",
-                  ),
+                  style: const TextStyle(fontSize: 16, fontFamily: "CM"),
                 ),
                 const SizedBox(height: 10),
                 Row(
@@ -288,8 +293,11 @@ class _DetailsMoviePageState extends State<DetailsMoviePage> {
                         color: AppColors.red,
                       ),
                     ),
-                    Icon(Icons.star,
-                        size: 25, color: Colors.yellowAccent.shade700),
+                    Icon(
+                      Icons.star,
+                      size: 25,
+                      color: Colors.yellowAccent.shade700,
+                    ),
                     const SizedBox(width: 5),
                     Text(
                       voteAverageString,
@@ -307,8 +315,11 @@ class _DetailsMoviePageState extends State<DetailsMoviePage> {
                         color: AppColors.red,
                       ),
                     ),
-                    const Icon(Icons.people_rounded,
-                        size: 25, color: AppColors.red),
+                    const Icon(
+                      Icons.people_rounded,
+                      size: 25,
+                      color: AppColors.red,
+                    ),
                     const SizedBox(width: 5),
                     Text(
                       movie.voteCount.toString(),
@@ -320,9 +331,7 @@ class _DetailsMoviePageState extends State<DetailsMoviePage> {
                   future: moviesProvider.getMovieRuntime(movie.id),
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
-                      return const Center(
-                        child: Text("Error"),
-                      );
+                      return const Center(child: Text("Error"));
                     } else if (snapshot.hasData) {
                       final runtime = snapshot.data!;
                       final runtimeString = convertMinutes(runtime);
@@ -336,19 +345,26 @@ class _DetailsMoviePageState extends State<DetailsMoviePage> {
                               color: AppColors.red,
                             ),
                           ),
-                          const Icon(Icons.timer_rounded,
-                              size: 25, color: AppColors.red),
+                          const Icon(
+                            Icons.timer_rounded,
+                            size: 25,
+                            color: AppColors.red,
+                          ),
                           const SizedBox(width: 5),
                           Text(
                             runtimeString,
-                            style:
-                                const TextStyle(fontSize: 16, fontFamily: "CB"),
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontFamily: "CB",
+                            ),
                           ),
                         ],
                       );
                     }
-                    return const Text("Duración...",
-                        style: TextStyle(fontFamily: "CM"));
+                    return const Text(
+                      "Duración...",
+                      style: TextStyle(fontFamily: "CM"),
+                    );
                   },
                 ),
               ],
@@ -367,10 +383,7 @@ class _DetailsMoviePageState extends State<DetailsMoviePage> {
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Text(
             "Sinopsis",
-            style: TextStyle(
-              fontSize: 20,
-              fontFamily: "CB",
-            ),
+            style: TextStyle(fontSize: 20, fontFamily: "CB"),
           ),
         ),
         movie.overview.isEmpty
@@ -391,8 +404,10 @@ class _DetailsMoviePageState extends State<DetailsMoviePage> {
                 ],
               )
             : Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 10,
+                ),
                 child: Text(
                   movie.overview,
                   textAlign: TextAlign.justify,
@@ -412,21 +427,13 @@ class _DetailsMoviePageState extends State<DetailsMoviePage> {
           text: convertDate(movie.releaseDate.toString()),
           icon: Icons.date_range_rounded,
         ),
-        Container(
-          color: AppColors.red,
-          height: 40,
-          width: 2,
-        ),
+        Container(color: AppColors.red, height: 40, width: 2),
         _detailsItem(
           title: "Popularidad",
           text: movie.popularity.toString(),
           icon: Icons.group_rounded,
         ),
-        Container(
-          color: AppColors.red,
-          height: 40,
-          width: 2,
-        ),
+        Container(color: AppColors.red, height: 40, width: 2),
         _detailsItem(
           title: "Idioma",
           text: movie.originalLanguage,
@@ -436,8 +443,11 @@ class _DetailsMoviePageState extends State<DetailsMoviePage> {
     );
   }
 
-  Widget _detailsItem(
-      {required String title, required String text, IconData? icon}) {
+  Widget _detailsItem({
+    required String title,
+    required String text,
+    IconData? icon,
+  }) {
     return Column(
       children: [
         Text(
@@ -449,25 +459,17 @@ class _DetailsMoviePageState extends State<DetailsMoviePage> {
           ),
         ),
         const SizedBox(height: 5),
-        Icon(
-          icon,
-          color: AppColors.deepOrange,
-        ),
+        Icon(icon, color: AppColors.deepOrange),
         const SizedBox(height: 5),
-        Text(
-          text,
-          style: const TextStyle(
-            fontSize: 16,
-            fontFamily: "CB",
-          ),
-        ),
+        Text(text, style: const TextStyle(fontSize: 16, fontFamily: "CB")),
       ],
     );
   }
 }
 
-class _buttomPlayTrailer extends StatelessWidget {
-  const _buttomPlayTrailer({
+class ButtomPlayTrailer extends StatelessWidget {
+  const ButtomPlayTrailer({
+    super.key,
     required this.moviesProvider,
     required this.movie,
   });
@@ -494,8 +496,9 @@ class _buttomPlayTrailer extends StatelessWidget {
         child: IconButton(
           icon: const Icon(Icons.play_arrow_rounded),
           onPressed: () async {
-            final List<Video> trailers =
-                await moviesProvider.getMovieTrailer(movie.id);
+            final List<Video> trailers = await moviesProvider.getMovieTrailer(
+              movie.id,
+            );
             if (trailers.isNotEmpty) {
               final String videoKey = trailers.first.key;
               showDialog(
@@ -551,8 +554,9 @@ class _buttomPlayTrailer extends StatelessWidget {
                         splashColor: AppColors.darkColor,
                         color: AppColors.red,
                         onPressed: () {
-                          SystemChrome.setPreferredOrientations(
-                              [DeviceOrientation.portraitUp]);
+                          SystemChrome.setPreferredOrientations([
+                            DeviceOrientation.portraitUp,
+                          ]);
                           Navigator.of(context).pop();
                         },
                         child: const Text(
@@ -627,7 +631,7 @@ class _buttomPlayTrailer extends StatelessWidget {
 
 class Actores extends StatelessWidget {
   final int movieId;
-  const Actores(this.movieId);
+  const Actores(this.movieId, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -655,8 +659,9 @@ class Actores extends StatelessWidget {
         }
 
         //mostrar solo los actores que tengan foto
-        final actores =
-            snapshot.data!.where((actor) => actor.profilePath != null).toList();
+        final actores = snapshot.data!
+            .where((actor) => actor.profilePath != null)
+            .toList();
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -665,10 +670,7 @@ class Actores extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 "Actores",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontFamily: "CB",
-                ),
+                style: TextStyle(fontSize: 20, fontFamily: "CB"),
               ),
             ),
             const SizedBox(height: 20),
@@ -682,7 +684,9 @@ class Actores extends StatelessWidget {
                   //no mostrar los actores que no tengan foto
 
                   return _actorCard(
-                      actor: actores[index], isDarkMode: isDarkMode);
+                    actor: actores[index],
+                    isDarkMode: isDarkMode,
+                  );
                 },
               ),
             ),
@@ -758,7 +762,7 @@ class Actores extends StatelessWidget {
 
 class Generos extends StatelessWidget {
   final int movieId;
-  const Generos(this.movieId);
+  const Generos(this.movieId, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -770,10 +774,7 @@ class Generos extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Text(
             "Género",
-            style: TextStyle(
-              fontSize: 18,
-              fontFamily: "CB",
-            ),
+            style: TextStyle(fontSize: 18, fontFamily: "CB"),
           ),
         ),
         const SizedBox(height: 10),
@@ -815,7 +816,9 @@ class Generos extends StatelessWidget {
                     child: Center(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
+                          horizontal: 10,
+                          vertical: 5,
+                        ),
                         child: Text(
                           generos[index].name,
                           style: const TextStyle(
@@ -901,8 +904,9 @@ class SimilarMovies extends StatelessWidget {
         }
 
         //solo mostrar las películas que tengan foto
-        final movies =
-            snapshot.data!.where((movie) => movie.posterPath != null).toList();
+        final movies = snapshot.data!
+            .where((movie) => movie.posterPath != null)
+            .toList();
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -911,10 +915,7 @@ class SimilarMovies extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 "Películas similares",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontFamily: "CB",
-                ),
+                style: TextStyle(fontSize: 20, fontFamily: "CB"),
               ),
             ),
             const SizedBox(height: 20),
@@ -926,20 +927,23 @@ class SimilarMovies extends StatelessWidget {
                 itemCount: movies.length,
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
-                      onTap: () {
-                        // Navigator.pushNamed(context, "/detalle",
-                        //     arguments: movies[index]);
-                        Navigator.pushNamed(
-                          context,
-                          "/detalle",
-                          arguments: {
-                            'movie': movies[index],
-                            'userData': userData,
-                          },
-                        );
-                      },
-                      child: _similarMovieCard(
-                          movie: movies[index], isDarkMode: isDarkMode));
+                    onTap: () {
+                      // Navigator.pushNamed(context, "/detalle",
+                      //     arguments: movies[index]);
+                      Navigator.pushNamed(
+                        context,
+                        "/detalle",
+                        arguments: {
+                          'movie': movies[index],
+                          'userData': userData,
+                        },
+                      );
+                    },
+                    child: _similarMovieCard(
+                      movie: movies[index],
+                      isDarkMode: isDarkMode,
+                    ),
+                  );
                 },
               ),
             ),

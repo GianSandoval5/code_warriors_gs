@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 class ProfilePage extends StatelessWidget {
   final dynamic userData;
-  const ProfilePage({Key? key, this.userData}) : super(key: key);
+  const ProfilePage({super.key, this.userData});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class ProfilePage extends StatelessWidget {
                     height: 60,
                     width: 60,
                     decoration: BoxDecoration(
-                      color: AppColors.red.withOpacity(0.2),
+                      color: AppColors.red.withAlpha(55),
                       borderRadius: BorderRadius.circular(100),
                       border: Border.all(
                         color:
@@ -141,7 +141,7 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ),
                 trailing: Consumer<ThemeController>(
-                  builder: (_, controller, __) => Switch(
+                  builder: (_, controller, _) => Switch(
                     value: controller.isDarkMode,
                     onChanged: (value) {
                       controller.toggle();

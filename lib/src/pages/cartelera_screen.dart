@@ -122,7 +122,7 @@ class _CarteleraScreenState extends State<CarteleraScreen> {
                   borderRadius: BorderRadius.circular(100),
                   color: isDarkMode
                       ? AppColors.lightColor
-                      : AppColors.darkColor.withOpacity(0.5),
+                      : AppColors.darkColor.withAlpha(120),
                   hintText: 'Buscar película',
                   controller: searchController,
                   suffixIcon: IconButton(
@@ -198,7 +198,7 @@ class _CarteleraScreenState extends State<CarteleraScreen> {
                         child: Card(
                           elevation: 15,
                           shadowColor: isDarkMode
-                              ? AppColors.lightColor.withOpacity(0.6)
+                              ? AppColors.lightColor.withAlpha(130)
                               : AppColors.darkAcentsColor,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),

@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 class MisComprasPage extends StatefulWidget {
   final dynamic userData;
-  const MisComprasPage({Key? key, this.userData}) : super(key: key);
+  const MisComprasPage({super.key, this.userData});
 
   @override
   State<MisComprasPage> createState() => _MisComprasPageState();
@@ -31,7 +31,7 @@ class _MisComprasPageState extends State<MisComprasPage> {
       List<Map<String, dynamic>> compras = [];
 
       // Iterar sobre los documentos y agregar los datos a la lista
-      querySnapshot.docs.forEach((doc) {
+      for (var doc in querySnapshot.docs) {
         // Convertir los datos a un Map<String, dynamic>
         Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
 
@@ -39,12 +39,12 @@ class _MisComprasPageState extends State<MisComprasPage> {
         if (data != null) {
           compras.add(data);
         }
-      });
+      }
 
       // Retornar la lista de compras del usuario
       return compras;
     } catch (e) {
-      print('Error al leer las compras: $e');
+      //print('Error al leer las compras: $e');
       return []; // Retornar una lista vacía en caso de error
     }
   }

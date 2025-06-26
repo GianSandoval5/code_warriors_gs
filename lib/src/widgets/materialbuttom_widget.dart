@@ -6,11 +6,10 @@ class MaterialButtomWidget extends StatelessWidget {
   final Color color;
   final VoidCallback onPressed;
   const MaterialButtomWidget(
-      {Key? key,
+      {super.key,
       required this.title,
       required this.color,
-      required this.onPressed})
-      : super(key: key);
+      required this.onPressed});
 
   @override
   Widget build(BuildContext context) {

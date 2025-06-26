@@ -63,7 +63,7 @@ class Validators {
   //PARA VALIDAR FECHA DE NACIMIENTO
 
 //FECHA DE NACIMIENTO
-  static String? birthValidator(value) {
+  static String? birthValidator(dynamic value) {
     if (value == null || value.isEmpty) {
       return 'Ingrese tu fecha de nacimiento';
     }

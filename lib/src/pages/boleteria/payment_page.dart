@@ -16,12 +16,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:ticket_widget/ticket_widget.dart';
 
 class PaymentPage extends StatefulWidget {
-  const PaymentPage({Key? key}) : super(key: key);
+  const PaymentPage({super.key});
 
   @override
   State<PaymentPage> createState() => _PaymentPageState();
@@ -53,9 +52,9 @@ class _PaymentPageState extends State<PaymentPage> {
     bool isDarkMode = context.isDarkMode;
 
     final Set<String> uniqueProductNames = {};
-    selectedProducts.forEach((product) {
+    for (var product in selectedProducts) {
       uniqueProductNames.add(product['nombre']);
-    });
+    }
 
     //sumar el precio de las entradas y los productos
     final totalPriceFinal = productTotalPrice + totalPrice;
@@ -68,8 +67,8 @@ class _PaymentPageState extends State<PaymentPage> {
       await Future.delayed(const Duration(seconds: 2));
 
       //obtener la ref. a la coleccion de compras
-      final CollectionReference comprasCollection =
-          FirebaseFirestore.instance.collection('compras');
+      final CollectionReference comprasCollection = FirebaseFirestore.instance
+          .collection('compras');
       //obtener el id del documento
       final String idCompra = comprasCollection.doc().id;
 
@@ -116,17 +115,15 @@ class _PaymentPageState extends State<PaymentPage> {
                       alignment: Alignment.center,
                       child: Text(
                         'CineWarriors',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontFamily: "CB",
-                        ),
+                        style: TextStyle(fontSize: 20, fontFamily: "CB"),
                       ),
                     ),
                     const SizedBox(height: 10),
                     RichiIconTextWidget(
-                        icon: Icons.movie,
-                        isDarkMode: isDarkMode,
-                        text: "Pelicula: ${movie.title}"),
+                      icon: Icons.movie,
+                      isDarkMode: isDarkMode,
+                      text: "Pelicula: ${movie.title}",
+                    ),
                     RowPriceDetails(
                       icon: Icons.calendar_today,
                       text: 'Fecha: ',
@@ -169,10 +166,12 @@ class _PaymentPageState extends State<PaymentPage> {
                         final productName = uniqueProductNames.toList()[index];
                         final productCount = selectedProducts
                             .where(
-                                (product) => product['nombre'] == productName)
+                              (product) => product['nombre'] == productName,
+                            )
                             .length;
                         final product = selectedProducts.firstWhere(
-                            (prod) => prod['nombre'] == productName);
+                          (prod) => prod['nombre'] == productName,
+                        );
                         //final totalPrice = product['precio'] * productCount;
 
                         return Column(
@@ -181,19 +180,21 @@ class _PaymentPageState extends State<PaymentPage> {
                               children: [
                                 FadeInImage(
                                   height: 30,
-                                  placeholder:
-                                      const AssetImage('assets/gif/animc.gif'),
+                                  placeholder: const AssetImage(
+                                    'assets/gif/animc.gif',
+                                  ),
                                   image: NetworkImage(product['imagen']),
-                                  imageErrorBuilder: (
-                                    BuildContext context,
-                                    Object error,
-                                    StackTrace? stackTrace,
-                                  ) {
-                                    return Image.asset(
-                                      'assets/images/noimage.png',
-                                      height: 30,
-                                    );
-                                  },
+                                  imageErrorBuilder:
+                                      (
+                                        BuildContext context,
+                                        Object error,
+                                        StackTrace? stackTrace,
+                                      ) {
+                                        return Image.asset(
+                                          'assets/images/noimage.png',
+                                          height: 30,
+                                        );
+                                      },
                                   fit: BoxFit.contain,
                                 ),
                                 const SizedBox(width: 10),
@@ -241,8 +242,9 @@ class _PaymentPageState extends State<PaymentPage> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              backgroundColor:
-                  isDarkMode ? AppColors.darkColor : AppColors.lightColor,
+              backgroundColor: isDarkMode
+                  ? AppColors.darkColor
+                  : AppColors.lightColor,
               content: ticketWidget,
               actions: <Widget>[
                 Row(
@@ -252,32 +254,40 @@ class _PaymentPageState extends State<PaymentPage> {
                       color: AppColors.red,
                       splashColor: AppColors.acentColor,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      child: const Text('Descargar',
-                          style: TextStyle(
-                              fontFamily: "CB", color: AppColors.lightColor)),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Text(
+                        'Descargar',
+                        style: TextStyle(
+                          fontFamily: "CB",
+                          color: AppColors.lightColor,
+                        ),
+                      ),
                       onPressed: () async {
                         try {
                           // Guardar la imagen generada en el directorio de documentos de la aplicación
                           RenderRepaintBoundary boundary =
                               globalKey.currentContext!.findRenderObject()
                                   as RenderRepaintBoundary;
-                          ui.Image image =
-                              await boundary.toImage(pixelRatio: 4.0);
+                          ui.Image image = await boundary.toImage(
+                            pixelRatio: 4.0,
+                          );
                           final directory =
                               (await getApplicationDocumentsDirectory()).path;
                           ByteData? byteData = await image.toByteData(
-                              format: ui.ImageByteFormat.png);
+                            format: ui.ImageByteFormat.png,
+                          );
                           Uint8List pngBytes = byteData!.buffer.asUint8List();
                           File imgFile = File(
-                              "$directory/compras_${comprasList.length - 3}.png");
+                            "$directory/compras_${comprasList.length - 3}.png",
+                          );
                           await imgFile.writeAsBytes(pngBytes);
 
-                          print('Imagen guardada en: ${imgFile.path}');
+                         // print('Imagen guardada en: ${imgFile.path}');
 
                           showSnackbar(context, "Ticket descargado con éxito");
                         } catch (e) {
-                          print('Error al guardar la imagen: $e');
+                         // print('Error al guardar la imagen: $e');
                         }
                       },
                     ),
@@ -285,29 +295,37 @@ class _PaymentPageState extends State<PaymentPage> {
                       color: AppColors.acentColor,
                       splashColor: AppColors.red,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      child: const Text('Compartir',
-                          style: TextStyle(
-                              fontFamily: "CB", color: AppColors.lightColor)),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Text(
+                        'Compartir',
+                        style: TextStyle(
+                          fontFamily: "CB",
+                          color: AppColors.lightColor,
+                        ),
+                      ),
                       onPressed: () async {
                         RenderRepaintBoundary boundary =
                             globalKey.currentContext!.findRenderObject()
                                 as RenderRepaintBoundary;
-                        ui.Image image =
-                            await boundary.toImage(pixelRatio: 4.0);
+                        ui.Image image = await boundary.toImage(
+                          pixelRatio: 4.0,
+                        );
                         ByteData? byteData = await image.toByteData(
-                            format: ui.ImageByteFormat.png);
+                          format: ui.ImageByteFormat.png,
+                        );
                         Uint8List pngBytes = byteData!.buffer.asUint8List();
 
                         final directory = await getTemporaryDirectory();
-                        final imagePath =
-                            await File('${directory.path}/compras.png')
-                                .create();
+                        final imagePath = await File(
+                          '${directory.path}/compras.png',
+                        ).create();
                         await imagePath.writeAsBytes(pngBytes);
 
-                        final path = imagePath.path;
-                        await Share.shareFiles([path],
-                            text: 'Compartiendo código Ticket');
+                        final text = "Compartiendo mi ticket de CineWarriors";
+
+                        final xFile = XFile(imagePath.path);
+                        await Share.shareXFiles([xFile], text: text);
                       },
                     ),
                   ],
@@ -315,11 +333,14 @@ class _PaymentPageState extends State<PaymentPage> {
               ],
             );
           },
-        ).then((_) => Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(
-                  builder: (context) => InicioPage(userData: userData)),
-              (Route<dynamic> route) => false,
-            ));
+        ).then(
+          (_) => Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (context) => InicioPage(userData: userData),
+            ),
+            (Route<dynamic> route) => false,
+          ),
+        );
 
         setState(() {
           isLoading = false;
@@ -340,28 +361,30 @@ class _PaymentPageState extends State<PaymentPage> {
         ? WillPopScope(
             onWillPop: () async => false,
             child: Scaffold(
-                backgroundColor:
-                    isDarkMode ? AppColors.darkColor : AppColors.lightColor,
-                body: const Center(
-                    child: Column(
+              backgroundColor: isDarkMode
+                  ? AppColors.darkColor
+                  : AppColors.lightColor,
+              body: const Center(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     //icono de tarjeta de credito
-                    Icon(
-                      Icons.credit_card,
-                      size: 100,
-                      color: AppColors.red,
-                    ),
+                    Icon(Icons.credit_card, size: 100, color: AppColors.red),
                     CircularProgressWidget(text: "Procesando pago..."),
                   ],
-                ))))
+                ),
+              ),
+            ),
+          )
         : Scaffold(
-            backgroundColor:
-                isDarkMode ? AppColors.darkColor : AppColors.lightColor,
+            backgroundColor: isDarkMode
+                ? AppColors.darkColor
+                : AppColors.lightColor,
             appBar: AppBar(
-              backgroundColor:
-                  isDarkMode ? AppColors.darkColor : AppColors.lightColor,
+              backgroundColor: isDarkMode
+                  ? AppColors.darkColor
+                  : AppColors.lightColor,
               iconTheme: IconThemeData(
                 color: isDarkMode ? AppColors.lightColor : AppColors.darkColor,
               ),
@@ -369,8 +392,9 @@ class _PaymentPageState extends State<PaymentPage> {
               title: Text(
                 'Procesar pago',
                 style: TextStyle(
-                  color:
-                      isDarkMode ? AppColors.lightColor : AppColors.darkColor,
+                  color: isDarkMode
+                      ? AppColors.lightColor
+                      : AppColors.darkColor,
                   fontFamily: "CB",
                 ),
               ),
@@ -398,13 +422,19 @@ class _PaymentPageState extends State<PaymentPage> {
                                   child: FadeInImage(
                                     height: 100,
                                     placeholder: const AssetImage(
-                                        'assets/gif/vertical.gif'),
+                                      'assets/gif/vertical.gif',
+                                    ),
                                     image: NetworkImage(movie.fullPosterImg),
-                                    imageErrorBuilder: (BuildContext context,
-                                        Object error, StackTrace? stackTrace) {
-                                      return Image.asset(
-                                          'assets/images/noimage.png');
-                                    },
+                                    imageErrorBuilder:
+                                        (
+                                          BuildContext context,
+                                          Object error,
+                                          StackTrace? stackTrace,
+                                        ) {
+                                          return Image.asset(
+                                            'assets/images/noimage.png',
+                                          );
+                                        },
                                     fit: BoxFit.contain,
                                   ),
                                 ),
@@ -478,17 +508,18 @@ class _PaymentPageState extends State<PaymentPage> {
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
                                   itemCount: uniqueProductNames.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    final productName =
-                                        uniqueProductNames.toList()[index];
+                                  itemBuilder: (BuildContext context, int index) {
+                                    final productName = uniqueProductNames
+                                        .toList()[index];
                                     final productCount = selectedProducts
-                                        .where((product) =>
-                                            product['nombre'] == productName)
+                                        .where(
+                                          (product) =>
+                                              product['nombre'] == productName,
+                                        )
                                         .length;
                                     final product = selectedProducts.firstWhere(
-                                        (prod) =>
-                                            prod['nombre'] == productName);
+                                      (prod) => prod['nombre'] == productName,
+                                    );
                                     final totalPrice =
                                         product['precio'] * productCount;
 
@@ -499,19 +530,22 @@ class _PaymentPageState extends State<PaymentPage> {
                                           child: FadeInImage(
                                             height: 50,
                                             placeholder: const AssetImage(
-                                                'assets/gif/animc.gif'),
-                                            image:
-                                                NetworkImage(product['imagen']),
-                                            imageErrorBuilder: (
-                                              BuildContext context,
-                                              Object error,
-                                              StackTrace? stackTrace,
-                                            ) {
-                                              return Image.asset(
-                                                'assets/images/noimage.png',
-                                                height: 50,
-                                              );
-                                            },
+                                              'assets/gif/animc.gif',
+                                            ),
+                                            image: NetworkImage(
+                                              product['imagen'],
+                                            ),
+                                            imageErrorBuilder:
+                                                (
+                                                  BuildContext context,
+                                                  Object error,
+                                                  StackTrace? stackTrace,
+                                                ) {
+                                                  return Image.asset(
+                                                    'assets/images/noimage.png',
+                                                    height: 50,
+                                                  );
+                                                },
                                             fit: BoxFit.contain,
                                           ),
                                         ),
@@ -549,7 +583,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                               ),
                                             ],
                                           ),
-                                        )
+                                        ),
                                       ],
                                     );
                                   },
@@ -594,20 +628,26 @@ class _PaymentPageState extends State<PaymentPage> {
                                   child: FadeInImage(
                                     height: 100,
                                     placeholder: const AssetImage(
-                                        'assets/gif/animc.gif'),
+                                      'assets/gif/animc.gif',
+                                    ),
                                     image: NetworkImage(userData['imageUser']),
-                                    imageErrorBuilder: (BuildContext context,
-                                        Object error, StackTrace? stackTrace) {
-                                      return ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        child: Image.asset(
-                                          'assets/images/avatar3.png',
-                                          fit: BoxFit.contain,
-                                          height: 100,
-                                        ),
-                                      );
-                                    },
+                                    imageErrorBuilder:
+                                        (
+                                          BuildContext context,
+                                          Object error,
+                                          StackTrace? stackTrace,
+                                        ) {
+                                          return ClipRRect(
+                                            borderRadius: BorderRadius.circular(
+                                              10.0,
+                                            ),
+                                            child: Image.asset(
+                                              'assets/images/avatar3.png',
+                                              fit: BoxFit.contain,
+                                              height: 100,
+                                            ),
+                                          );
+                                        },
                                     fit: BoxFit.contain,
                                   ),
                                 ),
@@ -703,7 +743,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           );

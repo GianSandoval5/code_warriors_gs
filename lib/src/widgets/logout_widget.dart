@@ -72,7 +72,7 @@ class LogoutWidget extends StatelessWidget {
                     ),
                     const SizedBox(width: 15),
                     MaterialButton(
-                      color: AppColors.deepOrange.withOpacity(0.8),
+                      color: AppColors.deepOrange.withAlpha(200),
                       splashColor: AppColors.acentColor,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),

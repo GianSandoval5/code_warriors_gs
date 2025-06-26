@@ -33,7 +33,7 @@ class LoginProvider extends ChangeNotifier {
       );
       return userCredential;
     } catch (e) {
-      print(e);
+      //print(e);
       return null;
     }
   }

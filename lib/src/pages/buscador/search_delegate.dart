@@ -57,7 +57,7 @@ class MovieSearchDelegate extends SearchDelegate {
       child: Icon(
         Icons.movie_creation_outlined,
         size: 100,
-        color: AppColors.darkColor.withOpacity(0.5),
+        color: AppColors.darkColor.withAlpha(120)
       ),
     );
   }

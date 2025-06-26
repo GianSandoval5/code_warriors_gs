@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 class ProductosPage extends StatefulWidget {
   final dynamic userData;
-  const ProductosPage({Key? key, this.userData}) : super(key: key);
+  const ProductosPage({super.key, this.userData});
 
   @override
   State<ProductosPage> createState() => _ProductosPageState();
